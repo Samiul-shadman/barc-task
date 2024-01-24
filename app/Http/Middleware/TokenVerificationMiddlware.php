@@ -16,7 +16,6 @@ class TokenVerificationMiddlware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        try{
 
             $token = $request->cookie('token');
 
@@ -33,7 +32,6 @@ class TokenVerificationMiddlware
                 $request->headers->set('email',$decode->userEmail);
                 return $next($request);
             }
-        }
         
         //return $next($request);
     }
