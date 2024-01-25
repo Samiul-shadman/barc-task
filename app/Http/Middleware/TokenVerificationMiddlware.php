@@ -23,19 +23,20 @@ class TokenVerificationMiddlware
 
         if($token != null){
 
-        $decode = JWTToken::VerifyToken($token);
+            $decode = JWTToken::VerifyToken($token);
 
-        if($decode == 'Unauthorized'){
-            return response()->json([
-                'status' => 'unauthorized',
-                'message' => 'Log in Failed'
-            ]);
+            if($decode == 'Unauthorized'){
+                return response()->json([
+                    'status' => 'unauthorized',
+                    'message' => 'Log in Failed'
+                ]);
 
-        }
-        else{
-            $request->headers->set('email',$decode->userEmail);
-            return $next($request);
-        }
+            }
+            else{
+                $request->headers->set('email',$decode->userEmail);
+                $request->headers->set('id',$decode->userId);
+                return $next($request);
+            }
         }
         else{
             return response()->json([
