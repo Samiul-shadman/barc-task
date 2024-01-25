@@ -33,7 +33,7 @@ class UserController extends Controller
             -> where ('password', '=', $request->input('password'))
             ->count();
 
-        if($count == 1){
+        if($count != null){
             $token = JWTToken::CreateToken($request->input('email'));
             return response()->json([
                 'status' => 'success',
@@ -49,4 +49,14 @@ class UserController extends Controller
             ]);
         }
     }
+
+    public function UserLogout(){
+        return redirect('/')->cookie('token', '', -1);
+    }
+
+
+    public function UserExams(){
+        return 'UserExams';
+    }
+
 }

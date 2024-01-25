@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Helper\JWTToken;
 use Closure;
+use Exception;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -16,8 +17,11 @@ class TokenVerificationMiddlware
      */
     public function handle(Request $request, Closure $next): Response
     {
+        
 
             $token = $request->cookie('token');
+
+            if($token != null){
 
             $decode = JWTToken::VerifyToken($token);
 
@@ -32,7 +36,12 @@ class TokenVerificationMiddlware
                 $request->headers->set('email',$decode->userEmail);
                 return $next($request);
             }
+        }
+        else{
+            return response()->json([
+                        'status' => 'Failed'
+                    ]);
+        }
         
-        //return $next($request);
     }
 }
