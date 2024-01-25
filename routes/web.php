@@ -23,4 +23,8 @@ Route::post('/user-create',[UserController::class, 'UserRegistration']);
 Route::post('/user-login',[UserController::class, 'UserLogin']);
 Route::get('/user-logout', [UserController::class, 'UserLogout']);
 
-Route::get('/user-exam', [UserController::class, 'UserExams'])->middleware([TokenVerificationMiddlware::class]);
+// Route::get('/user-exam', [UserController::class, 'UserExams'])->middleware([TokenVerificationMiddlware::class]);
+
+Route::middleware('tokenVerification')->group( function(){
+    Route::get('/user-exam', [UserController::class, 'UserExams']);
+});
