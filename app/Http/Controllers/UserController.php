@@ -13,6 +13,19 @@ use Exception;
 
 class UserController extends Controller
 {
+
+    function LoginPage(){
+        return view('pages.auth.login-page');
+    }
+
+    function RegistrationPage(){
+        return view('pages.auth.registration-page');
+    }
+
+    function ExamPage(){
+        return view('pages.dashboard.profile-page');
+    }
+
     
     public function UserRegistration(Request $request){
         

@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('pages.auth.login-page');
 });
 
 Route::post('/user-create',[UserController::class, 'UserRegistration']);
@@ -27,4 +27,10 @@ Route::get('/user-logout', [UserController::class, 'UserLogout']);
 
 Route::middleware('tokenVerification')->group( function(){
     Route::get('/user-exam', [UserController::class, 'UserExams']);
+    Route::get('/exam-page',[UserController::class,'ExamPage']);
+    // Route::get('/dashboard',[DashboardController::class,'DashboardPage']);
 });
+
+
+Route::post('/user-registration',[UserController::class,'UserRegistration']);
+Route::post('/user-login',[UserController::class,'UserLogin']);
