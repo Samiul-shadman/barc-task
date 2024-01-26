@@ -9,7 +9,11 @@ class Exam extends Model
 {
     use HasFactory;
 
-    function AttendedExams(){
+    function attendedExams(){
         return $this->hasMany(AttendedExams::class);
+    }
+
+    function examAns(){
+        return $this->hasOne(ExamAns::class);
     }
 }
