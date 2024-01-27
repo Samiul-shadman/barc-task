@@ -6,7 +6,7 @@
                     <h2 id="examTitle"></h2>              
                     <!-- <a href=""><h3>Take Exam</h3></a>  -->
                     <br>
-                    <button onclick="takeExam(res.data.Exams.id)" class="btn w-20 bg-gradient-primary">Take Exam</button>
+                    <button onclick="takeExam()" id="examId" class="btn w-20 bg-gradient-primary">Take Exam</button>
                 </div>
             </div>
         </div>
@@ -28,31 +28,31 @@
         if (res.data.Exams) {
             // Assuming 'Exam_name' is a property of the 'Exams' object
             examTitle.textContent = res.data.Exams.Exam_name;
+            examId.value = res.data.Exams.id;
+
+            console.log(examId);
         } else {
             errorToast('No exams found in the response');
         }
 
-        return res;
     }
-    const data = getExam();
-    console.log(data);
-    examId = data.Exams.id;
-    console.log(examId);
-    
 
-    async function takeExam(exam_id){
+
+    async function takeExam(){
+        var exam_id = document.getElementById('examId').value;
         showLoader();
         let post_data = await axios.post("/exam-page",{
             exam_id : exam_id,
         });
+
+        console.log(exam_id);
         hideLoader();
         if(post_data.data['status']==='success'){
-            window.location.href="/exam-question/"+ exam_id;
+            window.location.href="/page-question/"+ exam_id;
         }
         else{
             errorToast(post_data.data['status']);
         }
-
     }
     
 </script>

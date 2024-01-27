@@ -34,7 +34,9 @@ Route::middleware('tokenVerification')->group( function(){
     Route::get('/exam-list',[UserController::class,'ExamList']);
 
     Route::post('/exam-page',[ExamController::class, 'ExamIdCheck']);
-    Route::get('/exam-question/{id}', [ExamController::class, 'ExamQuestion']);
+    Route::get('/page-question/{id}', [ExamController::class, 'ExamPage']);
+    Route::get('/exam-question', [ExamController::class, 'ExamQuestion']);
+    Route::post('/ans-store/{exam_id}',[ExamController::class, 'AnsStore']);
     // Route::get('/dashboard',[DashboardController::class,'DashboardPage']);
 });
 

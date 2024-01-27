@@ -12,7 +12,12 @@ use Illuminate\Database\Query\JoinClause;
 
 class ExamController extends Controller
 {
-    
+    public function ExamPage($exam_id){
+        $question = Exam::where('id', '=', $exam_id)
+        ->first();
+        //  return $question;
+        return view('pages.exam.exam-questions', compact('question'));
+    }
 
     public function UserExams(Request $request){
 
@@ -72,21 +77,35 @@ class ExamController extends Controller
         }
     }
 
-    public function ExamQuestion(Request $request,$exam_id){
-        try{
-            $question = Exam::where('id', '=', $request->input('exam_id'))
-                        ->get();
-    
-            return response()->json([
-                'status' => 'success',
-                'question' => $question
-            ]);
-            }
-            catch(Exception $e){
-                return response()->json([
-                    'status' => 'No Exam Avaiable'
-                ]);
-            }
-    }
+    // public function ExamQuestion(Request $request,$exam_id){
+    // try{
+    //     $question = Exam::where('id', '=', $exam_id)
+    //                 ->get();
 
+    //     return response()->json([
+    //         'status' => 'success',
+    //         'question' => $question
+    //     ]);
+    //     }
+    //     catch(Exception $e){
+    //         return response()->json([
+    //             'status' => 'No Exam Avaiable'
+    //         ]);
+    //     }
+    // }
+
+
+    public function AnsStore(Request $request,$exam_id){
+        $user_id = $request->header('id');
+
+        $request->merge([
+            'user_id' => $user_id,
+            'exam_id' => $exam_id
+        ]);
+        $exam_data = $request->input();
+
+        AttendedExams::create($request->input());
+
+        return redirect('/exam-list');
+    }
 }

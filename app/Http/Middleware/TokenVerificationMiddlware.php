@@ -26,10 +26,11 @@ class TokenVerificationMiddlware
             $decode = JWTToken::VerifyToken($token);
 
             if($decode == 'Unauthorized'){
-                return response()->json([
-                    'status' => 'unauthorized',
-                    'message' => 'Log in Failed'
-                ]);
+                return  redirect('/login');
+                // return response()->json([
+                //     'status' => 'unauthorized',
+                //     'message' => 'Log in Failed'
+                // ]);
 
             }
             else{
