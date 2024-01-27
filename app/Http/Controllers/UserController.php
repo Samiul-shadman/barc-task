@@ -14,16 +14,16 @@ use Exception;
 class UserController extends Controller
 {
 
-    function LoginPage(){
+    function loginPage(){
         return view('pages.auth.login-page');
     }
 
-    function RegistrationPage(){
+    function registrationPage(){
         return view('pages.auth.registration-page');
     }
 
-    function ExamPage(){
-        return view('pages.dashboard.profile-page');
+    function ExamList(){
+        return view('pages.exam.exampage-show');
     }
 
     
@@ -33,6 +33,7 @@ class UserController extends Controller
             User::UpdateorCreate($request->input());
 
             return response()->json([
+                'status' =>  'success',
                 'message' => 'User created '
             ]);
         }
@@ -76,39 +77,6 @@ class UserController extends Controller
     }
 
 
-    public function UserExams(Request $request){
-
-        $user = [
-            'email' => $request->header('email'),
-            'id' => $request->header('id')
-        ];
-
-        $user_id = $user['id'];
-
-        $attended_exams = AttendedExams::where('user_id', '=', $user['id'])->get();
-        
-        if($attended_exams->isempty()){
-            $ch = 'empty';
-            $exams = Exam::get();
-            
-        }
-        else{
-            $ch = 'not empty';
-            $exams = Exam::leftjoin('attended_exams', function(JoinClause $join) use ($user_id){
-                $join->on('exams.id', '=', 'attended_exams.exam_id')
-                    ->where('attended_exams.user_id' ,'=', $user_id);
-            })
-            ->whereNull('attended_exams.user_id')
-            ->get();
-        }
-
-            return response()->json([
-                '$user' => $user,
-                'attended?' => $attended_exams,
-                'check' => $ch,
-                'Exams' => $exams
-
-            ]);
-    }
+    
 
 }
