@@ -22,11 +22,9 @@
         let res =await axios.get("/user-exam");
         hideLoader();
 
-        // console.log(res.data);
-        // console.log(exam_id = res.data.Exams.id);
+
             
         if (res.data.Exams) {
-            // Assuming 'Exam_name' is a property of the 'Exams' object
             examTitle.textContent = res.data.Exams.Exam_name;
             examId.value = res.data.Exams.id;
 

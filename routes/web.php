@@ -27,7 +27,6 @@ Route::post('/user-create',[UserController::class, 'UserRegistration']);
 Route::post('/user-login',[UserController::class, 'UserLogin']);
 Route::get('/user-logout', [UserController::class, 'UserLogout']);
 
-// Route::get('/user-exam', [UserController::class, 'UserExams'])->middleware([TokenVerificationMiddlware::class]);
 
 Route::middleware('tokenVerification')->group( function(){
     Route::get('/user-exam', [ExamController::class, 'UserExams']);
@@ -38,7 +37,6 @@ Route::middleware('tokenVerification')->group( function(){
     Route::get('/exam-question', [ExamController::class, 'ExamQuestion']);
     Route::post('/ans-store/{exam_id}', [ExamController::class, 'AnsStore']);
     Route::get('/exam-result', [ExamController::class, 'ExamResult']);
-    // Route::get('/dashboard',[DashboardController::class,'DashboardPage']);
 });
 
 

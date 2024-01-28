@@ -36,12 +36,10 @@ class ExamController extends Controller
         $attended_exams = AttendedExams::where('user_id', '=', $user['id'])->get();
         
         if($attended_exams->isempty()){
-            $ch = 'empty';
             $exams = Exam::first();
             
         }
         else{
-            $ch = 'not empty';
             $exams = Exam::leftjoin('attended_exams', function(JoinClause $join) use ($user_id){
                 $join->on('exams.id', '=', 'attended_exams.exam_id')
                     ->where('attended_exams.user_id' ,'=', $user_id);
@@ -54,15 +52,6 @@ class ExamController extends Controller
             return response()->json([
                 'Exams' => $exams
             ]);
-
-
-            // return response()->json([
-            //     '$user' => $user,
-            //     'attended?' => $attended_exams,
-            //     'check' => $ch,
-            //     'Exams' => $exams
-
-            // ]);
     }
 
 
@@ -83,22 +72,6 @@ class ExamController extends Controller
         }
     }
 
-    // public function ExamQuestion(Request $request,$exam_id){
-    // try{
-    //     $question = Exam::where('id', '=', $exam_id)
-    //                 ->get();
-
-    //     return response()->json([
-    //         'status' => 'success',
-    //         'question' => $question
-    //     ]);
-    //     }
-    //     catch(Exception $e){
-    //         return response()->json([
-    //             'status' => 'No Exam Avaiable'
-    //         ]);
-    //     }
-    // }
 
 
     public function AnsStore(Request $request,$exam_id){
@@ -113,13 +86,10 @@ class ExamController extends Controller
             'user_id' => $user_id,
             'exam_id' => $exam_id
         ]);
-        // $exam_data = $request->input();
 
         AttendedExams::create($request->input());
 
-        // return [$this->userId,$this->examId];
         return redirect('/exam-result');
-        // ->with(['exam_id' => $exam_id]);
     }
 
 
@@ -148,7 +118,6 @@ class ExamController extends Controller
             }
         }
 
-        // return [$result,$exam_data,$exam_ans,$userId,$examId,$exam_name];
 
         return view('pages.exam.examresult-show', [
             'exam_name' => $exam_name,
