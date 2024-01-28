@@ -138,7 +138,7 @@
 let examID = document.getElementById('examID').value;
 
 window.onload = function () {
-    var count = 60 * 0.5,
+    var count = 60 * 10,
         display = document.querySelector('#time');
 
     startTimer(count, display);
