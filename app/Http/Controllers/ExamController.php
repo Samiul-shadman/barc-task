@@ -47,6 +47,7 @@ class ExamController extends Controller
                     ->where('attended_exams.user_id' ,'=', $user_id);
             })
             ->whereNull('attended_exams.user_id')
+            ->select('exams.id','exams.Exam_name')
             ->first();
         }
   

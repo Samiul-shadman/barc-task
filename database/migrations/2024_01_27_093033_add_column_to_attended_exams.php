@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::table('attended_exams', function (Blueprint $table) {
             $table->after('exam_id', function ($table){
-                $table->string('Exam_ans_1',500);
-                $table->string('Exam_ans_2',500);
-                $table->string('Exam_ans_3',500);
-                $table->string('Exam_ans_4',500);
-                $table->string('Exam_ans_5',500);
+                $table->string('Exam_ans_1',500)->nullable();
+                $table->string('Exam_ans_2',500)->nullable();
+                $table->string('Exam_ans_3',500)->nullable();
+                $table->string('Exam_ans_4',500)->nullable();
+                $table->string('Exam_ans_5',500)->nullable();
             });
         });
     }

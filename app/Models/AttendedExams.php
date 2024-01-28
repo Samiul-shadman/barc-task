@@ -18,6 +18,7 @@ class AttendedExams extends Model
         'Exam_ans_4',
         'Exam_ans_5'
     ];
+    
     function Exams(){
         return $this->belongsTo(Exam::class);
     }
